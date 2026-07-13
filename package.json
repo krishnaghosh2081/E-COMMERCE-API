@@ -1,0 +1,29 @@
+{
+  "name": "ecommerce-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch --conditions development --env-file=src/.env src/server.ts",
+    "prebuild": "rm -rf dist",
+    "build": "npx tsc ",
+    "prestart": "npm run build",
+    "start": "cd dist && node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.7.4"
+  }
+}
