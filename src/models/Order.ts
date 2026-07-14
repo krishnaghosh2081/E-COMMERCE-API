@@ -38,6 +38,35 @@ export const orderInputSchema = z.strictObject({
   }))
 });
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Order:
+ *       type: object
+ *       properties:
+ *         userId:
+ *           type: string
+ *           example: "userId"
+ *           description: The UserId
+ *         products:
+ *           type: array
+ *           items:
+ *             properties:
+ *               productId: 
+ *                 type: string 
+ *                 example: "productId"
+ *                 description: The productId
+ *               quantity:
+ *                 type: number
+ *                 example: "2"
+ *                 description: The quantity
+ *           description: The product id and quantity for an Order
+ *         total:
+ *           type: number
+ *           example: "15"
+ *           description: The price
+ */
 const orderSchema = new mongoose.Schema(
   {
    userId: {

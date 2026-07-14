@@ -6,8 +6,14 @@
     *     tags:
     *       - Users
     *     responses:
-    *       200:
+    *       "200":
     *         description: A list of users
+    *         content:
+    *           application/json:
+    *             schema:
+    *               type: array
+    *               items:
+    *                 $ref: '#/components/schemas/User'
     *   post:
     *     summary: Create an User
     *     tags:
@@ -19,8 +25,12 @@
     *           schema:
     *             $ref: '#/components/schemas/UserInput'
     *     responses:
-    *       201:
+    *       "201":
     *         description: Create an User
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/User'
     * /api/users/{id}: 
     *   put:
     *     parameters:
@@ -39,8 +49,12 @@
     *           schema:
     *             $ref: '#/components/schemas/UserInput'
     *     responses:
-    *       200:
+    *       "200":
     *         description: Update an User
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/User'
     *   delete:
     *     parameters:
     *       - name: id
@@ -65,14 +79,13 @@
     *     tags:
     *       - Users
     *     responses:
-    *       200:
+    *       "200":
     *         description: Get an User
     *         content:
-    *            application/json:
-    *                schema:
-    *                  $ref: '#/components/schemas/UserOutput'
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/User'
     */
-
 
 
 import express from "express";

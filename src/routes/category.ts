@@ -6,8 +6,14 @@
     *     tags:
     *       - Categories
     *     responses:
-    *       200:
+    *       "200":
     *         description: A list of categoriess
+    *         content:
+    *           application/json:
+    *             schema:
+    *               type: array
+    *               items:
+    *                 $ref: '#/components/schemas/Category'
     *   post:
     *     summary: Create a Category
     *     tags:
@@ -19,8 +25,12 @@
     *           schema:
     *             $ref: '#/components/schemas/CategoryInput'
     *     responses:
-    *       201:
+    *       "201":
     *         description: Create a Category
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Category'
     * /api/categories/{id}: 
     *   put:
     *     parameters:
@@ -39,8 +49,12 @@
     *           schema:
     *             $ref: '#/components/schemas/CategoryInput'
     *     responses:
-    *       200:
+    *       "200":
     *         description: Update a Category
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Category'
     *   delete:
     *     parameters:
     *       - name: id
@@ -65,12 +79,12 @@
     *     tags:
     *       - Categories
     *     responses:
-    *       200:
+    *       "200":
     *         description: Get a Category
     *         content:
-    *            application/json:
-    *                schema:
-    *                  $ref: '#/components/schemas/CategoryOutput'
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Category'
     */
 
 import express from "express";

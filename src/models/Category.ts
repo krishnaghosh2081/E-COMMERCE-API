@@ -20,6 +20,18 @@ export const categoryInputSchema = z.strictObject({
   name: z.string().min(2, 'min length is 3 chars')
 });
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Category:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           example: "Product Category"
+ *           description: The Name
+ */
 const categorySchema = new mongoose.Schema(
   {
     name: {

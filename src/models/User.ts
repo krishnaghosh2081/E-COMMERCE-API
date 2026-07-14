@@ -31,6 +31,25 @@ export const userInputSchema = z.strictObject({
   password: z.string().min(6, 'min length is 6 chars')
 });
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           example: "John"
+ *           description: The Name
+ *         email:
+ *           type: string
+ *           example: "john@example.com"
+ *           description: The email
+ *         id:
+ *           type: string
+ *           description: The id
+ */
 const userSchema = new mongoose.Schema(
   {
     name: {

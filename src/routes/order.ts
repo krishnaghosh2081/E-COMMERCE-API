@@ -6,8 +6,14 @@
     *     tags:
     *       - Orders
     *     responses:
-    *       200:
+    *       "200":
     *         description: A list of orders
+    *         content:
+    *           application/json:
+    *             schema:
+    *               type: array
+    *               items:
+    *                 $ref: '#/components/schemas/Order'
     *   post:
     *     summary: Create an Order
     *     tags:
@@ -19,8 +25,12 @@
     *           schema:
     *             $ref: '#/components/schemas/OrderInput'
     *     responses:
-    *       201:
+    *       "201":
     *         description: Create an Order
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Order'
     * /api/orders/{id}: 
     *   put:
     *     parameters:
@@ -39,8 +49,12 @@
     *           schema:
     *             $ref: '#/components/schemas/OrderInput'
     *     responses:
-    *       200:
+    *       "200":
     *         description: Update an Order
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Order'
     *   delete:
     *     parameters:
     *       - name: id
@@ -65,12 +79,12 @@
     *     tags:
     *       - Orders
     *     responses:
-    *       200:
+    *       "200":
     *         description: Get an Order
     *         content:
-    *            application/json:
-    *                schema:
-    *                  $ref: '#/components/schemas/OrderOutput'
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Order'
     */
 
 

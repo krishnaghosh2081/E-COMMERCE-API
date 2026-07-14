@@ -11,8 +11,14 @@
     *     tags:
     *       - Products
     *     responses:
-    *       200:
+    *       "200":
     *         description: A list of products
+    *         content:
+    *           application/json:
+    *             schema:
+    *               type: array
+    *               items:
+    *                 $ref: '#/components/schemas/Product'
     *   post:
     *     summary: Create a Product
     *     tags:
@@ -24,8 +30,12 @@
     *           schema:
     *             $ref: '#/components/schemas/ProductInput'
     *     responses:
-    *       201:
+    *       "201":
     *         description: Create a Product
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Product'
     * /api/products/{id}: 
     *   put:
     *     parameters:
@@ -44,8 +54,12 @@
     *           schema:
     *             $ref: '#/components/schemas/ProductInput'
     *     responses:
-    *       200:
+    *       "200":
     *         description: Update a Product
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Product'
     *   delete:
     *     parameters:
     *       - name: id
@@ -70,12 +84,12 @@
     *     tags:
     *       - Products
     *     responses:
-    *       200:
+    *       "200":
     *         description: Get a Product
     *         content:
-    *            application/json:
-    *                schema:
-    *                  $ref: '#/components/schemas/ProductOutput'
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Product'
     */
 
 

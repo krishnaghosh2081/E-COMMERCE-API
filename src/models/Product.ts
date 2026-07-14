@@ -36,6 +36,26 @@ export const productInputSchema = z.strictObject({
   categoryId: z.string()
 });
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: The Name
+ *         description:
+ *           type: string
+ *           description: The Name
+ *         price:
+ *           type: number
+ *           description: The price
+ *         categoryId:
+ *           type: string
+ *           description: The categoryId
+ */
 const productSchema = new mongoose.Schema(
   {
     name: {
