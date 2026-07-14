@@ -71,7 +71,11 @@ export const orderParmSchema = z.strictObject({
  *                 type: number
  *                 example: "2"
  *                 description: The quantity
- *           description: The product id and quantity for an Order
+ *               image:
+ *                 type: string
+ *                 example: "image link"
+ *                 description: The product image
+ *           description: The product id ,image and quantity for an Order
  *         total:
  *           type: number
  *           example: "15"

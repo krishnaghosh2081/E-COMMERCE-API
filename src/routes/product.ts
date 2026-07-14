@@ -98,6 +98,8 @@ import express from "express";
 import {getProducts,createProduct,updateProduct,getProductById,deleteProduct} from "../controllers/product.ts";
 import { productInputSchema ,productParmSchema,productQuerySchema} from '../models/Product.ts';
 import { validateBody } from '../middleware/validateBody.ts';
+import formMiddleWare  from '../middleware/formMiddleWare.ts';
+import  cloudUploader  from '../middleware/cloudUploader.ts';
 import { z } from "zod";
 
 const api=express.Router();
@@ -105,7 +107,7 @@ const api=express.Router();
    
 api.route("/").get(validateBody({
     querySchema: productQuerySchema,
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: z.object({}),
   }),getProducts);
 api.route("/").post(validateBody({
@@ -116,17 +118,17 @@ api.route("/").post(validateBody({
 
 api.route("/:id").get(validateBody({
     querySchema: z.object({}),
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: productParmSchema,
   }),getProductById);
-api.route("/:id").put(validateBody({
+api.route("/:id").put(formMiddleWare(), cloudUploader,validateBody({
     querySchema: z.object({}),
     bodySchema: productInputSchema,
     paramsSchema: productParmSchema,
   }),updateProduct);
 api.route("/:id").delete(validateBody({
     querySchema: z.object({}),
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: productParmSchema,
   }),deleteProduct);
 

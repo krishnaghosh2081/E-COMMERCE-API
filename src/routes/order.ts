@@ -108,7 +108,7 @@ api.route("/").post(validateBody({
 
 api.route("/:id").get(validateBody({
     querySchema: z.object({}),
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: orderParmSchema,
   }),getOrderById);
 api.route("/:id").put(validateBody({
@@ -118,7 +118,7 @@ api.route("/:id").put(validateBody({
   }),updateOrder);
 api.route("/:id").delete(validateBody({
     querySchema: z.object({}),
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: orderParmSchema,
   }),deleteOrder);
 

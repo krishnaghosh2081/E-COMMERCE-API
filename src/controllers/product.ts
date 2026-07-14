@@ -65,10 +65,10 @@ export const getProductById: RequestHandler = async (req, res) => {
 export const updateProduct: RequestHandler = async (req, res) => {
   try {
     const {
-      body: { name, description, price, categoryId },
+      body: { name, description, price, categoryId, image },
       params: { id }
     } = req;
-    if (!name || !description || !price || !categoryId)
+    if (!name || !description || !price || !categoryId )
       return res.status(400).json({ error: 'name, description, price, and categoryId are required' });
 
     const product = await Product.findById(id);
@@ -82,6 +82,7 @@ export const updateProduct: RequestHandler = async (req, res) => {
     product.description = description;
     product.price=price;
     product.categoryId = categoryId;
+    product.image=image;
     await product.save();
 
     const populatedProduct = await product.populate('categoryId', 'name');

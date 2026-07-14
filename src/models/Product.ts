@@ -33,6 +33,7 @@ export const productInputSchema = z.strictObject({
   name: z.string().min(2, 'min length is 2 chars'),
   description: z.string().min(2, 'min length is 2 chars'),
   price: z.number(),
+  image: z.string(),
   categoryId: z.string().refine((value) => Types.ObjectId.isValid(value), {
     message: 'Invalid categoryId'
   })
@@ -66,6 +67,9 @@ export const productQuerySchema = z.strictObject({
  *         price:
  *           type: number
  *           description: The price
+ *         image:
+ *           type: string
+ *           description: Product Image
  *         categoryId:
  *           type: string
  *           description: The categoryId
@@ -90,6 +94,9 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
       required: [true, 'Category ID is required']
+    },
+    image: {
+      type: String
     }
   },{
         toObject: {virtuals:true},

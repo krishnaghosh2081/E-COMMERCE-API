@@ -7,7 +7,7 @@ export  const getOrders: RequestHandler = async (req, res) => {
   try {
     const orders = await Order.find().populate([
       { path: 'userId', select: 'name email' },
-      { path: 'products.productId', select: 'name' }
+      { path: 'products.productId', select: 'name image' }
     ]);
     res.json(orders);
   } catch (error: unknown) {
@@ -42,7 +42,7 @@ export const createOrder: RequestHandler = async (req, res) => {
     const order = await Order.create({ userId, products, total });
     const populatedOrder = await order.populate([
       { path: 'userId', select: 'name email' },
-      { path: 'products.productId', select: 'name' }
+      { path: 'products.productId', select: 'name image' }
     ]);
     res.json(populatedOrder);
   } catch (error: unknown) {
@@ -63,7 +63,7 @@ export const getOrderById: RequestHandler = async (req, res) => {
     if (!order) return res.status(404).json({ error: 'Order not found' });
     const populatedOrder = await order.populate([
       { path: 'userId', select: 'name email' },
-      { path: 'products.productId', select: 'name' }
+      { path: 'products.productId', select: 'name image' }
     ]);
     res.json(populatedOrder);
 
@@ -108,7 +108,7 @@ export const updateOrder: RequestHandler = async (req, res) => {
     const newOrder=await order.save();
     const populatedOrder = await newOrder.populate([
       { path: 'userId', select: 'name email' },
-      { path: 'products.productId', select: 'name' }
+      { path: 'products.productId', select: 'name image' }
     ]);
     res.json(populatedOrder);
 

@@ -110,7 +110,7 @@ api.route("/").post(
 api.route("/:id").get(
   validateBody({
     querySchema: z.object({}),
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: userParmSchema
   }),getUserById);
 api.route("/:id").put(
@@ -122,7 +122,7 @@ api.route("/:id").put(
 api.route("/:id").delete(
   validateBody({
     querySchema: z.object({}),
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: userParmSchema
   }),deleteUser);
 

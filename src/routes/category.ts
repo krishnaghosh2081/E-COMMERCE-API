@@ -107,7 +107,7 @@ api.route("/").post(validateBody({
 
 api.route("/:id").get(validateBody({
     querySchema: z.object({}),
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: categoryParmSchema,
   }),getCategoryById);
 api.route("/:id").put(validateBody({
@@ -117,7 +117,7 @@ api.route("/:id").put(validateBody({
   }),updateCategory);
 api.route("/:id").delete(validateBody({
     querySchema: z.object({}),
-    bodySchema: z.object({}),
+    bodySchema: z.unknown(),
     paramsSchema: categoryParmSchema,
   }),deleteCategory);
 
