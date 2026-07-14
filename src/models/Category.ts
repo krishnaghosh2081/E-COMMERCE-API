@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{Types} from "mongoose";
 import z from 'zod';
 
 /**
@@ -18,6 +18,12 @@ import z from 'zod';
 
 export const categoryInputSchema = z.strictObject({
   name: z.string().min(2, 'min length is 3 chars')
+});
+
+export const categoryParmSchema = z.strictObject({
+  id: z.string().refine((value) => Types.ObjectId.isValid(value), {
+    message: 'Invalid id'
+  })
 });
 
 /**

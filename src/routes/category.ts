@@ -90,17 +90,35 @@
 import express from "express";
 
 import {getCategories,getCategoryById,createCategory,deleteCategory,updateCategory} from "../controllers/category.ts";
-import { categoryInputSchema } from '../models/Category.ts';
+import { categoryInputSchema,categoryParmSchema } from '../models/Category.ts';
 import { validateBody } from '../middleware/validateBody.ts';
+import { z } from "zod";
+
 
 const api=express.Router();
 
    
 api.route("/").get(getCategories);
-api.route("/").post(validateBody(categoryInputSchema),createCategory);
+api.route("/").post(validateBody({
+    querySchema: z.object({}),
+    bodySchema: categoryInputSchema,
+    paramsSchema: z.object({}),
+  }),createCategory);
 
-api.route("/:id").get(getCategoryById);
-api.route("/:id").put(updateCategory);
-api.route("/:id").delete(deleteCategory);
+api.route("/:id").get(validateBody({
+    querySchema: z.object({}),
+    bodySchema: z.object({}),
+    paramsSchema: categoryParmSchema,
+  }),getCategoryById);
+api.route("/:id").put(validateBody({
+    querySchema: z.object({}),
+    bodySchema: categoryInputSchema,
+    paramsSchema: categoryParmSchema,
+  }),updateCategory);
+api.route("/:id").delete(validateBody({
+    querySchema: z.object({}),
+    bodySchema: z.object({}),
+    paramsSchema: categoryParmSchema,
+  }),deleteCategory);
 
 export default api;

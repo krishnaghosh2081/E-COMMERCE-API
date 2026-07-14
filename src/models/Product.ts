@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{Types} from "mongoose";
 import z from 'zod';
 
 /**
@@ -33,7 +33,21 @@ export const productInputSchema = z.strictObject({
   name: z.string().min(2, 'min length is 2 chars'),
   description: z.string().min(2, 'min length is 2 chars'),
   price: z.number(),
-  categoryId: z.string()
+  categoryId: z.string().refine((value) => Types.ObjectId.isValid(value), {
+    message: 'Invalid categoryId'
+  })
+});
+
+export const productParmSchema = z.strictObject({
+  id: z.string().refine((value) => Types.ObjectId.isValid(value), {
+    message: 'Invalid id'
+  })
+});
+
+export const productQuerySchema = z.strictObject({
+  categoryId: z.string().refine((value) => Types.ObjectId.isValid(value), {
+    message: 'Invalid categoryId param'
+  }).optional()
 });
 
 /**

@@ -89,19 +89,41 @@
 
 
 import express from "express";
+import { z } from "zod";
 
 import {getUsers,createUser,getUserById,updateUser,deleteUser} from "../controllers/user.ts";
-import { userInputSchema } from '../models/User.ts';
+import { userInputSchema,userParmSchema } from '../models/User.ts';
 import { validateBody } from '../middleware/validateBody.ts';
 
 const api=express.Router();
-
    
 api.route("/").get(getUsers);
-api.route("/").post(validateBody(userInputSchema),createUser);
+api.route("/").post(
+  validateBody({
+    querySchema: z.object({}),
+    bodySchema: userInputSchema,
+    paramsSchema: z.object({}),
+  }),
+  createUser
+);
 
-api.route("/:id").get(getUserById);
-api.route("/:id").put(updateUser);
-api.route("/:id").delete(deleteUser);
+api.route("/:id").get(
+  validateBody({
+    querySchema: z.object({}),
+    bodySchema: z.object({}),
+    paramsSchema: userParmSchema
+  }),getUserById);
+api.route("/:id").put(
+  validateBody({
+    querySchema: z.object({}),
+    bodySchema: userInputSchema,
+    paramsSchema: userParmSchema
+  }),updateUser);
+api.route("/:id").delete(
+  validateBody({
+    querySchema: z.object({}),
+    bodySchema: z.object({}),
+    paramsSchema: userParmSchema
+  }),deleteUser);
 
 export default api;

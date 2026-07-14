@@ -96,18 +96,38 @@
 import express from "express";
 
 import {getProducts,createProduct,updateProduct,getProductById,deleteProduct} from "../controllers/product.ts";
-import { productInputSchema } from '../models/Product.ts';
+import { productInputSchema ,productParmSchema,productQuerySchema} from '../models/Product.ts';
 import { validateBody } from '../middleware/validateBody.ts';
+import { z } from "zod";
 
 const api=express.Router();
 
    
-api.route("/").get(getProducts);
-api.route("/:categoryId").get(getProducts);
-api.route("/").post(validateBody(productInputSchema),createProduct);
+api.route("/").get(validateBody({
+    querySchema: productQuerySchema,
+    bodySchema: z.object({}),
+    paramsSchema: z.object({}),
+  }),getProducts);
+api.route("/").post(validateBody({
+    querySchema: z.object({}),
+    bodySchema: productInputSchema,
+    paramsSchema: productParmSchema,
+  }),createProduct);
 
-api.route("/:id").get(getProductById);
-api.route("/:id").put(updateProduct);
-api.route("/:id").delete(deleteProduct);
+api.route("/:id").get(validateBody({
+    querySchema: z.object({}),
+    bodySchema: z.object({}),
+    paramsSchema: productParmSchema,
+  }),getProductById);
+api.route("/:id").put(validateBody({
+    querySchema: z.object({}),
+    bodySchema: productInputSchema,
+    paramsSchema: productParmSchema,
+  }),updateProduct);
+api.route("/:id").delete(validateBody({
+    querySchema: z.object({}),
+    bodySchema: z.object({}),
+    paramsSchema: productParmSchema,
+  }),deleteProduct);
 
 export default api;

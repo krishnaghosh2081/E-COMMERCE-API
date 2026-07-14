@@ -91,17 +91,35 @@
 import express from "express";
 
 import {getOrders, getOrderById,createOrder,deleteOrder,updateOrder} from "../controllers/order.ts";
-import { orderInputSchema } from '../models/Order.ts';
+import { orderInputSchema ,orderParmSchema} from '../models/Order.ts';
 import { validateBody } from '../middleware/validateBody.ts';
+import { z } from "zod";
+
 
 const api=express.Router();
 
    
 api.route("/").get(getOrders);
-api.route("/").post(validateBody(orderInputSchema),createOrder);
+api.route("/").post(validateBody({
+    querySchema: z.object({}),
+    bodySchema: orderInputSchema,
+    paramsSchema: z.object({}),
+  }),createOrder);
 
-api.route("/:id").get(getOrderById);
-api.route("/:id").put(updateOrder);
-api.route("/:id").delete(deleteOrder);
+api.route("/:id").get(validateBody({
+    querySchema: z.object({}),
+    bodySchema: z.object({}),
+    paramsSchema: orderParmSchema,
+  }),getOrderById);
+api.route("/:id").put(validateBody({
+    querySchema: z.object({}),
+    bodySchema: orderInputSchema,
+    paramsSchema: orderParmSchema,
+  }),updateOrder);
+api.route("/:id").delete(validateBody({
+    querySchema: z.object({}),
+    bodySchema: z.object({}),
+    paramsSchema: orderParmSchema,
+  }),deleteOrder);
 
 export default api;

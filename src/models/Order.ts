@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{Types} from "mongoose";
 import z from 'zod';
 
 /**
@@ -31,11 +31,21 @@ import z from 'zod';
  */
 
 export const orderInputSchema = z.strictObject({
-  userId: z.string(),
+  userId: z.string().refine((value) => Types.ObjectId.isValid(value), {
+      message: 'Invalid userId'
+    }),
   products: z.array(z.strictObject({
-    productId: z.string(),
+    productId: z.string().refine((value) => Types.ObjectId.isValid(value), {
+        message: 'Invalid productId'
+      }),
     quantity: z.number().min(1)
   }))
+});
+
+export const orderParmSchema = z.strictObject({
+  id: z.string().refine((value) => Types.ObjectId.isValid(value), {
+    message: 'Invalid id'
+  })
 });
 
 /**

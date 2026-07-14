@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{ Types } from "mongoose";
 import z from 'zod';
 
 /**
@@ -29,6 +29,12 @@ export const userInputSchema = z.strictObject({
   name: z.string().min(2, 'min length is 2 chars'),
   email: z.email(),
   password: z.string().min(6, 'min length is 6 chars')
+});
+
+export const userParmSchema = z.strictObject({
+  id: z.string().refine((value) => Types.ObjectId.isValid(value), {
+    message: 'Invalid id'
+  })
 });
 
 /**
