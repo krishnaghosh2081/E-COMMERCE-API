@@ -7,6 +7,7 @@ import product from "./routes/product.ts";
 import order from "./routes/order.ts";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from "swagger-jsdoc";
+import errorHandler from './middleware/errorHandler.ts';
 
 
 //console.log("Hello");
@@ -52,7 +53,7 @@ app.use("/api/categories", category);
 app.use("/api/products", product);
 app.use("/api/orders", order);
 
-
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
