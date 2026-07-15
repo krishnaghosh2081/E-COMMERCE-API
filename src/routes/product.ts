@@ -50,9 +50,20 @@
     *     requestBody:
     *       required: true
     *       content:
-    *         application/json:
+    *         multipart/form-data:
     *           schema:
-    *             $ref: '#/components/schemas/ProductInput'
+    *             type: object
+    *             properties:
+    *               body:
+    *                 type: object
+    *                 $ref: '#/components/schemas/ProductInput'
+    *               image:
+    *                 required: true
+    *                 type: string
+    *                 format: binary
+    *           encoding:
+    *             image:
+    *               contentType: 'image/png, image/jpeg, image/jpg'
     *     responses:
     *       "200":
     *         description: Update a Product
@@ -105,31 +116,59 @@ import { z } from "zod";
 const api=express.Router();
 
    
-api.route("/").get(validateBody({
+api.route("/")
+.get(
+  validateBody({
     querySchema: productQuerySchema,
-    bodySchema: z.unknown(),
-    paramsSchema: z.object({}),
-  }),getProducts);
-api.route("/").post(validateBody({
-    querySchema: z.object({}),
-    bodySchema: productInputSchema,
-    paramsSchema: productParmSchema,
-  }),createProduct);
+    bodySchema:z.unknown(),
+    paramsSchema:z.object({})
+  }),
+  getProducts
+)
 
-api.route("/:id").get(validateBody({
-    querySchema: z.object({}),
-    bodySchema: z.unknown(),
-    paramsSchema: productParmSchema,
-  }),getProductById);
-api.route("/:id").put(formMiddleWare(), cloudUploader,validateBody({
-    querySchema: z.object({}),
-    bodySchema: productInputSchema,
-    paramsSchema: productParmSchema,
-  }),updateProduct);
-api.route("/:id").delete(validateBody({
-    querySchema: z.object({}),
-    bodySchema: z.unknown(),
-    paramsSchema: productParmSchema,
-  }),deleteProduct);
+
+.post(
+  formMiddleWare(),
+  validateBody({
+    querySchema:z.object({}),
+    bodySchema:productInputSchema,
+    paramsSchema:z.object({})
+  }),
+  createProduct
+);
+
+
+
+api.route("/:id")
+.get(
+  validateBody({
+    querySchema:z.object({}),
+    bodySchema:z.unknown(),
+    paramsSchema:productParmSchema
+  }),
+  getProductById
+)
+
+
+.put(
+  formMiddleWare(),
+  cloudUploader,
+  validateBody({
+    querySchema:z.object({}),
+    bodySchema:productInputSchema,
+    paramsSchema:productParmSchema
+  }),
+  updateProduct
+)
+
+
+.delete(
+  validateBody({
+    querySchema:z.object({}),
+    bodySchema:z.unknown(),
+    paramsSchema:productParmSchema
+  }),
+  deleteProduct
+);
 
 export default api;

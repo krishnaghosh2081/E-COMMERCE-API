@@ -22,6 +22,7 @@ import z from 'zod';
  *         categoryId:
  *           type: string
  *           description: The categoryId
+ *           example: "6a54c738a14d1d5196f5e475" 
  *       required:
  *         - name
  *         - description

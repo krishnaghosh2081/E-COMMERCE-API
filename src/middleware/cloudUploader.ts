@@ -16,7 +16,7 @@ const cloudUploader: RequestHandler =
         // req.file may be typed as unknown; cast to string (path/URL) for cloudinary uploader
         //console.log("FilePath:===",req.body.filePath);
         const file = req.body.file as any;
-        console.log("FilePath:===",file.filepath);
+        //console.log("FilePath:===",file.filepath);
         const filepath=file.filepath;
         const fileName=path.parse(file.newFilename);
         //console.log("fileName:===",fileName.name);
@@ -29,23 +29,16 @@ const cloudUploader: RequestHandler =
                   public_id: fileName.name,
               },
               function(error, result) {
-                  //console.log(error);
+                if(error)
+                  console.log(error);
+                if(result)
+                   console.log("File uploaded . Url:",result.secure_url); 
               }
         );
-        //console.log(req.body);
-        //const { firstName, lastName, email } = req.body;
-        const name: string = req.body.name?.[0];
-        const description: string = req.body.description?.[0];
-        const price: string = req.body.price?.[0];
-        const categoryId = req.body.categoryId?.[0];
-        const image = uploadRes.secure_url;
-        const newBody = { name, description, price: Number(price), categoryId, image };
-        //console.log("====",newBody);
-        //req.body = newBody;
-        // delete the file from temp dir
+       
         delete req.body['file'];
         req.body.image=uploadRes.secure_url;
-        console.log(req.body);
+        //console.log(req.body);
        await fs.promises.rm(filepath, { force: true });
 
         next();

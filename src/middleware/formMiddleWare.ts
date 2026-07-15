@@ -1,69 +1,92 @@
-import express from 'express';
+import { type RequestHandler } from 'express';
 import formidable from 'formidable';
-import type { RequestHandler } from 'express';
+import fs from 'fs';
+import path from 'path';
 
-const app = express();
 
-const formMiddleWare =
-  (): RequestHandler =>
+const formMiddleWare = (): RequestHandler =>
   (req, res, next) => {
-    
-    //console.log('I am in middleware');
-    const form =  formidable({
-    uploadDir: 'upload/',
-    maxFileSize: 100 * 1024 * 1024, // 10MB
-    keepExtensions: true,
-    filename: function (name, ext, part, form) {
-      const { originalFilename } = part;
-      // ensure a string is always returned (fallback to a timestamp-based name)
-      return originalFilename ? `${Date.now()}-`+originalFilename:`${Date.now()}${ext}`;
-    },
-    filter: function ({ name, originalFilename, mimetype }) {
-      // keep only images
-      const valid = mimetype?.includes('image') ?? false;
-      if (!valid)
-        form.emit('error', 'Invalid file');
-    //next('Invalid file');
-      return valid;
-    },
-  });
+    const uploadDir = path.join(process.cwd(), 'upload');
 
-  /*const bodyFields=[];
-  form.on('field', function (field, value) {
-    bodyFields[field] = value
-  });*/
 
-    //const body=req.body;
-    //console.log('start parse');
+    // make sure upload folder exists
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir);
+    }
+
+
+    const form = formidable({
+      uploadDir,
+
+      maxFileSize: 100 * 1024 * 1024,
+
+      keepExtensions: true,
+
+      filename: (name, ext, part) => {
+
+        const originalName =
+          part.originalFilename ?? `file${ext}`;
+
+        return `${Date.now()}-${originalName}`;
+      },
+
+
+      filter: ({ mimetype }) => {
+
+        const valid =
+          mimetype?.startsWith('image/') ?? false;
+
+
+        return valid;
+      },
+    });
+
+
+
     form.parse(req, (err, fields, files) => {
-    if (err) {
-        console.log(err);
-      next(err);
-      //console.log('fields:', fields);
-      return;
-    }
-    //console.log('bodyFields:', bodyFields);
-    //console.log('fields:', fields.body[0]);
-    const bodyField = fields.body?.[0];
-    if (!bodyField || typeof bodyField !== 'string') {
-      next(new Error('Invalid body field', { cause: { status: 400 } }));
-      return;
-    }
-    const objOriginal = JSON.parse(bodyField);
-    //console.log("objOriginal===",objOriginal);
-   // console.log('files:===', files);
-    req.body = objOriginal;
-    //console.log("added to body",req.body);
-   // const file=files.file;
-    //const filePath=Array.isArray(file) ? file[0]?.filepath :undefined;
-    //console.log("req.body.file====",filePath);
-    req.body.file=Array.isArray(files.image) ? files.image[0]:undefined;
-    //console.log("req.file====",files.file[0]);
-   // console.log('parse complete');
-    next();
-  });
-   
-  };
+
+
+      if (err) {
+        return next(err);
+      }
+
+
+      try {
+
+        const bodyField = fields.body?.[0];
+        //console.log("bodyfield:",bodyField);
+
+        if (!bodyField || typeof bodyField !== 'string') {
+          return next(
+            new Error('Invalid body field', { cause: { status: 400 } })
+          );
+        }
+
+
+        req.body = JSON.parse(bodyField);
+
+
+        const image = files.image;
+
+
+        req.body.file =
+          Array.isArray(image)
+            ? image[0]
+            : image;
+
+
+        next();
+
+
+      } catch(error) {
+
+        next(error);
+
+      }
+
+    });
+
+};
 
 
 export default formMiddleWare;
