@@ -5,6 +5,7 @@ import user from "./routes/user.ts";
 import category from "./routes/category.ts";
 import product from "./routes/product.ts";
 import order from "./routes/order.ts";
+import shoppingCart from "./routes/shoppingCart.ts";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from "swagger-jsdoc";
 import errorHandler from './middleware/errorHandler.ts';
@@ -44,7 +45,7 @@ app.use(cors());
    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send("Hello Wellcome to ECommerce API");
 });
 
@@ -52,6 +53,7 @@ app.use("/api/users", user);
 app.use("/api/categories", category);
 app.use("/api/products", product);
 app.use("/api/orders", order);
+app.use("/api/shoppingCarts", shoppingCart);
 
 app.use(errorHandler);
 

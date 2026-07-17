@@ -1,4 +1,4 @@
-import express, { type RequestHandler } from 'express';
+import { type RequestHandler } from 'express';
 import Category, { type CategoryInput }  from '../models/Category.ts';
 
 export const getCategories: RequestHandler = async (req, res) => {

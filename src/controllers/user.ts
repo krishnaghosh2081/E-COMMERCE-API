@@ -1,4 +1,4 @@
-import express, { type RequestHandler } from 'express';
+import { type RequestHandler } from 'express';
 import User, { type UserInput }  from '../models/User.ts';
 
 export const getUsers: RequestHandler = async (req, res) => {

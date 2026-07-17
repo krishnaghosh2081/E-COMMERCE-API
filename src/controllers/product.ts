@@ -1,4 +1,4 @@
-import express, { type RequestHandler } from 'express';
+import { type RequestHandler } from 'express';
 import Product, { type ProductInput }  from '../models/Product.ts';
 import Category from '../models/Category.ts';
 import url from 'url';
