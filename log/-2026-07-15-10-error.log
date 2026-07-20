@@ -1,0 +1,9 @@
+{"level":"error","message":"400-Invalid body[object Object]"}
+{"level":"error","message":"400-Invalid body[object Object]"}
+{"level":"error","message":"400-Invalid body[\n  {\n    \"code\": \"custom\",\n    \"path\": [\n      \"categoryId\"\n    ],\n    \"message\": \"Invalid categoryId\"\n  }\n]"}
+{"level":"error","message":"400-Invalid body[\n  {\n    \"code\": \"custom\",\n    \"path\": [\n      \"categoryId\"\n    ],\n    \"message\": \"Invalid categoryId\"\n  }\n]"}
+{"level":"error","message":"400-Invalid body✖ Invalid categoryId\n  → at categoryId"}
+{"level":"error","message":"400-Invalid body:✖ Invalid categoryId\n  → at categoryId"}
+{"level":"error","message":"400-Invalid body:✖ Invalid categoryId\n  → at categoryId"}
+{"level":"error","message":"400-Invalid body:✖ Invalid categoryId\n  → at categoryId"}
+{"level":"error","message":"400-Invalid body:✖ Invalid categoryId\n  → at categoryId"}
