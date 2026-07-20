@@ -11,8 +11,6 @@ import swaggerJSDoc from "swagger-jsdoc";
 import errorHandler from './middleware/errorHandler.ts';
 
 
-//console.log("Hello");
-
 const app = express();
 connectDB();
 const port = process.env.PORT || 3000;
@@ -58,5 +56,5 @@ app.use("/api/shoppingCarts", shoppingCart);
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example e-commerce app listening on port ${port}`);
 });

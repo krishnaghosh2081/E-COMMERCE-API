@@ -7,7 +7,6 @@ export  const getProducts: RequestHandler = async (req, res) => {
   try {
     var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
-    //console.log("query:  ",query);
     const { categoryId } = query;
     if(categoryId){
         const products = await Product.find({categoryId: categoryId}).populate('categoryId', 'name');

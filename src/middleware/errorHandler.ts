@@ -1,18 +1,25 @@
 import { type ErrorRequestHandler } from 'express';
 import * as winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
+import fs from 'fs';
+import path from 'path';
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-    //process.env.NODE_ENV !== 'production' &&
-    //    console.log(`\x1b[31m${err.stack}\x1b[0m`);
+    
+        let logDir=process.env.LOG_DIR;  
 
-        //console.log("I came to error handler");
-        const logDir=process.env.LOG_DIR;  
+        if(!logDir){
+         logDir = path.join(process.cwd(), 'log');
+        
+        
+            // make sure log folder exists
+            if (!fs.existsSync(logDir)) {
+              fs.mkdirSync(logDir);
+            }
+        }
         let fileName='';
         if(logDir)  {
-            //console.log(logDir);
             fileName=logDir+'/'+'-%DATE%-error.log';
-            //console.log(fileName);
         }
         const transport: DailyRotateFile = new DailyRotateFile({
             filename: fileName,
@@ -24,8 +31,6 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
         let errorMessage = 'Internal server error';
         let statusCode = 500;
 
-
-        //console.log(err);
 
         if (err instanceof Error) {
         // check if cause property exists, is an object, and has a 'status' property
@@ -41,7 +46,6 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
         ]
     });
 
-    //logger.info('Hello World!');
     logger.error(statusCode+"-"+errorMessage);
     return  res.status(statusCode).json({ error: errorMessage });
 };

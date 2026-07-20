@@ -13,7 +13,7 @@ export const validateBody = ({ querySchema, bodySchema, paramsSchema }: Schema) 
       const query=    querySchema.safeParse(req.query); 
 
       const result=   bodySchema.safeParse(req.body);
-      //console.log(req.params);
+      
       const param=    paramsSchema.safeParse(req.params);
 
       if (!result.success) {
