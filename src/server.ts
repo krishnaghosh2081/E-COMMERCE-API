@@ -14,6 +14,7 @@ import errorHandler from './middleware/errorHandler.ts';
 const app = express();
 connectDB();
 const port = process.env.PORT || 3000;
+const url=process.env.URL || `http://localhost:${port}`;
 
 // middleware
 app.use(express.json());
@@ -32,11 +33,11 @@ app.use(cors());
            },
            servers: [
                {
-                   url: `http://localhost:${port}`,
+                   url: `${url}`,
                },
            ],
        },
-       apis: ['./src/routes/*.ts', './src/models/*.ts'], // Path to your API docs
+       apis: ['./src/routes/*.ts', './src/models/*.ts','./routes/*.js', './models/*.js'], // Path to your API docs
    };
 
    const swaggerDocs = swaggerJSDoc(swaggerOptions);
