@@ -37,6 +37,9 @@ export const categoryParmSchema = z.strictObject({
  *           type: string
  *           example: "Product Category"
  *           description: The Name
+ *         id:
+ *           type: string
+ *           description: The id
  */
 const categorySchema = new mongoose.Schema(
   {

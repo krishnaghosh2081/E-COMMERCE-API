@@ -55,18 +55,17 @@ export const orderParmSchema = z.strictObject({
  *     Order:
  *       type: object
  *       properties:
- *         userId:
- *           type: string
- *           example: "userId"
- *           description: The UserId
+ *         user:
+ *           type: object
+ *           description: The User
  *         products:
  *           type: array
  *           items:
  *             properties:
- *               productId: 
- *                 type: string 
- *                 example: "productId"
- *                 description: The productId
+ *               product: 
+ *                 type: object 
+ *                 example: "product"
+ *                 description: The product
  *               quantity:
  *                 type: number
  *                 example: "2"
@@ -80,6 +79,15 @@ export const orderParmSchema = z.strictObject({
  *           type: number
  *           example: "15"
  *           description: The price
+ *         id:
+ *           type: string
+ *           description: The id
+ *         createdAt:
+ *           type: string
+ *           description: The createdAt
+ *         updatedAt:
+ *           type: string
+ *           description: The updatedAt
  */
 const orderSchema = new mongoose.Schema(
   {

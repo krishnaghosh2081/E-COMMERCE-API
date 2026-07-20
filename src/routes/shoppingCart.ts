@@ -2,12 +2,12 @@
     * @openapi
     * /api/shoppingCarts:
     *   get:
-    *     summary: Retrieve a list of shoppingCarts
+    *     summary: Retrieve a list of ShoppingCarts
     *     tags:
     *       - ShoppingCarts
     *     responses:
     *       "200":
-    *         description: A list of shoppingCarts
+    *         description: A list of ShoppingCarts
     *         content:
     *           application/json:
     *             schema:

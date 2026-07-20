@@ -2,12 +2,12 @@
     * @openapi
     * /api/orders:
     *   get:
-    *     summary: Retrieve a list of orders
+    *     summary: Retrieve a list of Orders
     *     tags:
     *       - Orders
     *     responses:
     *       "200":
-    *         description: A list of orders
+    *         description: A list of Orders
     *         content:
     *           application/json:
     *             schema:

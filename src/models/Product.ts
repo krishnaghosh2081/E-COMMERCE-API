@@ -22,7 +22,6 @@ import z from 'zod';
  *         categoryId:
  *           type: string
  *           description: The categoryId
- *           example: "6a54c738a14d1d5196f5e475" 
  *       required:
  *         - name
  *         - description
@@ -71,9 +70,12 @@ export const productQuerySchema = z.strictObject({
  *         image:
  *           type: string
  *           description: Product Image
- *         categoryId:
- *           type: string
+ *         category:
+ *           type: object
  *           description: The categoryId
+ *         id:
+ *           type: string
+ *           description: The id
  */
 const productSchema = new mongoose.Schema(
   {
